@@ -6,7 +6,7 @@
 /*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:38:36 by sde-smed          #+#    #+#             */
-/*   Updated: 2022/11/30 14:18:27 by sde-smed         ###   ########.fr       */
+/*   Updated: 2022/11/30 14:42:19 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ static char	**parse(int fd, int nb)
 
 	i = 0;
 	map = malloc(nb * sizeof(char *));
+	if (!map)
+	{
+		return (NULL);
+	}
 	row = get_next_line(fd);
 	while (row)
 	{
@@ -53,15 +57,16 @@ static int	check_wall(t_map map)
 	int	x;
 
 	x = 0;
+	ft_printf("%d %d\n", map.row, map.column);
 
-	while (x < map.column)
+	while (x < map.row)
 	{
 		y = 0;
-		while (y < map.row)
+		while (y < map.column)
 		{
-			if ((x == 0 || x == map.column - 1) && map.map[x][y] != '1')
+			if ((x == 0 || x == map.row - 1) && map.map[x][y] != '1')
 				return (-1);
-			if ((y == 0 || y == map.row - 1) && map.map[x][y] != '1')
+			if ((y == 0 || y == map.column - 1) && map.map[x][y] != '1')
 				return (-1);
 			y++;
 		}
@@ -81,12 +86,15 @@ void	start_check(char *path, t_map map)
 		error("can't open map");
 	map.row = nb_row(path);
 	if (map.row <= 0)
-		error("wrong number of row (%d)", map.row);
+		error("wrong number of row ");
 	map.map = parse(fd, map.row);
+	if (map.map <= 0)
+		error("error while parsing");
 	map.column = ft_strlen(map.map[0]) - 1;
 
 	if (check_wall(map) == -1)
 	{
+
 		free_map(map);
 		error("map isn't ok");
 	}
