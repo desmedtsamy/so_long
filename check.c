@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:38:36 by sde-smed          #+#    #+#             */
-/*   Updated: 2022/11/30 14:42:19 by sde-smed         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:45:39 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ static char	**parse(int fd, int nb)
 	i = 0;
 	map = malloc(nb * sizeof(char *));
 	if (!map)
-	{
 		return (NULL);
-	}
 	row = get_next_line(fd);
 	while (row)
 	{
@@ -57,8 +55,6 @@ static int	check_wall(t_map map)
 	int	x;
 
 	x = 0;
-	ft_printf("%d %d\n", map.row, map.column);
-
 	while (x < map.row)
 	{
 		y = 0;
@@ -74,8 +70,30 @@ static int	check_wall(t_map map)
 	}
 	return (42);
 }
+static int	init_value(t_map *map)
+{
+	int	y;
+	int	x;
 
-void	start_check(char *path, t_map map)
+	x = 0;
+	while (x < map->row)
+	{
+		y = 0;
+		while (y < map->column)
+		{
+			if (map->map[x][y] == 'E')
+			{
+				map->player.x = x;
+				map->player.y = y;
+			}
+			y++;
+		}
+		x++;
+	}
+	return (42);
+}
+
+void	start_check(char *path, t_map *map)
 {
 	int	fd;
 
@@ -84,18 +102,17 @@ void	start_check(char *path, t_map map)
 	fd = open(path, O_RDONLY);
 	if (fd <= 0)
 		error("can't open map");
-	map.row = nb_row(path);
-	if (map.row <= 0)
+	map->row = nb_row(path);
+	if (map->row <= 0)
 		error("wrong number of row ");
-	map.map = parse(fd, map.row);
-	if (map.map <= 0)
+	map->map = parse(fd, map->row);
+	if (map->map <= 0)
 		error("error while parsing");
-	map.column = ft_strlen(map.map[0]) - 1;
-
-	if (check_wall(map) == -1)
+	map->column = ft_strlen(map->map[0]) - 1;
+	init_value(map);
+	if (check_wall(*map) == -1)
 	{
-
-		free_map(map);
+		free_map(*map);
 		error("map isn't ok");
 	}
 }
