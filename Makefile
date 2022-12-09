@@ -6,15 +6,16 @@
 #    By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:51:56 by sde-smed          #+#    #+#              #
-#    Updated: 2022/11/30 12:51:17 by sde-smed         ###   ########.fr        #
+#    Updated: 2022/12/09 13:56:35 by sde-smed         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= so_long
-LIB		=	-L ./libft -lft -L ./printf -lprintf -L ./get_next_line -lgnl -L ./minilibx -lmlx -framework OpenGL -framework AppKit
+LIB		=	-L ./libft -lft -L ./printf -lprintf -L ./get_next_line -lgnl -L /usr/local/include -lmlx -framework OpenGL -framework AppKit
 SRCS	= 	main.c\
 			utils.c\
-			check.c
+			check.c\
+			render.c
 			
 LIBFT	= libft/
 GNL	= get_next_line/
