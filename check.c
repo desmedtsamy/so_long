@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:38:36 by sde-smed          #+#    #+#             */
-/*   Updated: 2022/12/05 14:45:39 by samy             ###   ########.fr       */
+/*   Updated: 2022/12/06 11:57:02 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,20 @@ static int	init_value(t_map *map)
 	int	x;
 
 	x = 0;
+	map->food = 0;
 	while (x < map->row)
 	{
 		y = 0;
 		while (y < map->column)
 		{
-			if (map->map[x][y] == 'E')
+			if (map->map[x][y] == 'P')
 			{
 				map->player.x = x;
 				map->player.y = y;
+			}
+			if (map->map[x][y] == 'C')
+			{
+				map->food++;
 			}
 			y++;
 		}

@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 21:53:32 by samy              #+#    #+#             */
-/*   Updated: 2022/12/05 14:33:21 by samy             ###   ########.fr       */
+/*   Updated: 2022/12/06 15:10:25 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,17 @@ typedef struct s_map
 {
 	int			row;
 	int			column;
+	int			food;
 	char		**map;
 	t_vector	player;
 }				t_map;
 
 typedef struct s_game
 {
-	void		*mlx;
-	void		*window;
-	t_map		map;
+	void	*mlx;
+	void	*window;
+	int		moves;
+	t_map	map;
 }				t_game;
 
 int		ft_strrncmp(const char *s1, const char *s2, size_t n);
