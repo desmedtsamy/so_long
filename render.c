@@ -6,7 +6,7 @@
 /*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 13:53:52 by sde-smed          #+#    #+#             */
-/*   Updated: 2022/12/09 14:46:31 by sde-smed         ###   ########.fr       */
+/*   Updated: 2022/12/09 14:49:23 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	print(int x, int y, t_game *game, t_sprites *sprites)
 
 	w = y * SIZE;
 	h = x * SIZE;
-
 	if (game->map.map[x][y] == '1')
 		mlx_put_image_to_window(game->mlx, game->window, sprites->wall, w, h);
 	else if (game->map.map[x][y] == 'P')
@@ -40,7 +39,6 @@ void	set_sprites(t_game *game, t_sprites *sprites)
 	paths[1] = "./sprites/pacman.xmp";
 	paths[2] = "./sprites/food.xmp";
 	paths[3] = "./sprites/exit.xmp";
-
 	sprites->wall = mlx_xpm_file_to_image(game->mlx, paths[0], &s, &s);
 	sprites->player = mlx_xpm_file_to_image(game->mlx, paths[1], &s, &s);
 	sprites->food = mlx_xpm_file_to_image(game->mlx, paths[2], &s, &s);
