@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 21:53:32 by samy              #+#    #+#             */
-/*   Updated: 2022/12/09 14:25:16 by sde-smed         ###   ########.fr       */
+/*   Updated: 2022/12/18 16:50:54 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ typedef struct s_map
 {
 	int			row;
 	int			column;
+	int			spawn;
 	int			food;
+	int			exit;
 	char		**map;
 	t_vector	player;
 }				t_map;
@@ -56,9 +58,16 @@ typedef struct s_game
 
 int		ft_strrncmp(const char *s1, const char *s2, size_t n);
 void	start_check(char *path, t_map *map);
-void	error(char *message);
-void	free_map(t_map map);
+void	error(char *message, t_map *map);
 void	render_map(t_game *game);
 void	put_image(t_game game);
+int		can_win(t_map map);
+int		check_wall(t_map map);
 
 #endif
+/*
+compter l exit comme un mur
+prendre tt les food
+mettre un flag a 1 quand on rencontre l exit
+check si l'exit est a 1 a la fin
+*/

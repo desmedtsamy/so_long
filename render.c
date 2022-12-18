@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 13:53:52 by sde-smed          #+#    #+#             */
-/*   Updated: 2022/12/09 14:49:23 by sde-smed         ###   ########.fr       */
+/*   Updated: 2022/12/18 17:30:38 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	render_map(t_game *game)
 	ft_printf("%d\n", game->moves);
 }
 
-void	put_image(t_game game)
+void	put_imagee(t_game game)
 {
 	int		size;
 	void	*img;

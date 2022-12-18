@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:43:21 by samy              #+#    #+#             */
-/*   Updated: 2022/12/09 14:26:20 by sde-smed         ###   ########.fr       */
+/*   Updated: 2022/12/18 17:28:20 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ int	deal_keys(int keycode, void *param)
 	game = (t_game *)param;
 	if (keycode == 53)
 		quit(param);
-	if (keycode == 124)
+	if (keycode == 124 || keycode == 2)
 		move(0, 1, game);
-	if (keycode == 123)
+	if (keycode == 123 || keycode == 0)
 		move(0, -1, game);
-	if (keycode == 126)
+	if (keycode == 126 || keycode == 13)
 		move(-1, 0, game);
-	if (keycode == 125)
+	if (keycode == 125 || keycode == 1)
 		move(1, 0, game);
 	return (0);
 }
@@ -76,14 +76,14 @@ int	main(int argc, char **argv)
 	int		row;
 
 	if (argc < 2)
-		error("no map in arguments");
+		error("no map in arguments", NULL);
 	if (argc > 2)
-		error("to much arguments");
+		error("to much arguments", NULL);
 	start_check(argv[1], &game.map);
 	game.mlx = mlx_init();
-	col = game.map.column;
-	row = game.map.row;
-	game.window = mlx_new_window(game.mlx, col * SIZE, row * SIZE, "pacman_42");
+	col = game.map.column * SIZE;
+	row = game.map.row * SIZE;
+	game.window = mlx_new_window(game.mlx, col, row, "pacman_42");
 	game.moves = 0;
 	mlx_key_hook(game.window, deal_keys, &game);
 	mlx_hook(game.window, DESTROYNOTIFY, 0, quit, &game);

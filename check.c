@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:38:36 by sde-smed          #+#    #+#             */
-/*   Updated: 2022/12/09 13:51:02 by sde-smed         ###   ########.fr       */
+/*   Updated: 2022/12/18 16:49:30 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,46 +29,32 @@ static int	nb_row(char *path)
 	return (count + 1);
 }
 
-static char	**parse(int fd, int nb)
+static char	**parse(int fd, int nb_row)
 {
 	char	**map;
-	char	*row;
+	int		nb_col;
 	int		i;
 
 	i = 0;
-	map = malloc(nb * sizeof(char *));
+	map = malloc(nb_row * sizeof(char *));
 	if (!map)
 		return (NULL);
-	row = get_next_line(fd);
-	while (row)
+	map[i] = get_next_line(fd);
+	nb_col = ft_strlen(map[i]);
+	while (++i < nb_row)
 	{
-		map[i++] = row;
-		row = get_next_line(fd);
-	}
-	close(fd);
-	return (map);
-}
-
-static int	check_wall(t_map map)
-{
-	int	y;
-	int	x;
-
-	x = 0;
-	while (x < map.row)
-	{
-		y = 0;
-		while (y < map.column)
+		map[i] = get_next_line(fd);
+		if (ft_strlen(map[i]) != nb_col || i == nb_row - 1)
 		{
-			if ((x == 0 || x == map.row - 1) && map.map[x][y] != '1')
-				return (-1);
-			if ((y == 0 || y == map.column - 1) && map.map[x][y] != '1')
-				return (-1);
-			y++;
+			if (i != nb_row - 1 || (ft_strlen(map[i]) != nb_col - 1))
+			{
+				while (i >= 0)
+					free(map[i--]);
+				error("map isn't a rectangle\n", NULL);
+			}
 		}
-		x++;
 	}
-	return (42);
+	return (map);
 }
 
 static int	init_value(t_map *map)
@@ -76,49 +62,65 @@ static int	init_value(t_map *map)
 	int	y;
 	int	x;
 
-	x = 0;
+	x = -1;
+	map->spawn = 0;
 	map->food = 0;
-	while (x < map->row)
+	map->exit = 0;
+	while (++x < map->row)
 	{
-		y = 0;
-		while (y < map->column)
+		y = -1;
+		while (++y < map->column)
 		{
 			if (map->map[x][y] == 'P')
 			{
+				map->spawn++;
 				map->player.x = x;
 				map->player.y = y;
 			}
 			if (map->map[x][y] == 'C')
-			{
 				map->food++;
-			}
-			y++;
+			if (map->map[x][y] == 'E')
+				map->exit++;
 		}
-		x++;
 	}
 	return (42);
 }
 
-void	start_check(char *path, t_map *map)
+void	check_file(char *path, t_map *map)
 {
-	int	fd;
+	int		fd;
 
 	if (ft_strrncmp(path, ".ber", 4))
-		error("map should be a .ber");
+		error("map should be a .ber\n", NULL);
 	fd = open(path, O_RDONLY);
 	if (fd <= 0)
-		error("can't open map");
+		error("can't open map\n", NULL);
 	map->row = nb_row(path);
-	if (map->row <= 0)
-		error("wrong number of row ");
+	if (map->row == 0)
+		error("Empty file\n", NULL);
 	map->map = parse(fd, map->row);
 	if (map->map <= 0)
-		error("error while parsing");
+		error("error while parsing\n", NULL);
 	map->column = ft_strlen(map->map[0]) - 1;
 	init_value(map);
+}
+
+void	start_check(char *path, t_map *map)
+{
+	check_file(path, map);
+	init_value(map);
 	if (check_wall(*map) == -1)
-	{
-		free_map(*map);
-		error("map isn't ok");
-	}
+		error("wall isn't ok\n", map);
+	if (map->food == 0)
+		error("no food found\n", map);
+	if (map->exit == 0)
+		error("no exit found\n", map);
+	if (map->exit > 1)
+		error("too much exit found\n", map);
+	if (map->spawn == 0)
+		error("no player found\n", map);
+	if (map->spawn > 1)
+		error("too much player found\n", map);
+	if (!can_win(*map))
+		error("can't access to all food or exit\n", map);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+         #
+#    By: samy <samy@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:51:56 by sde-smed          #+#    #+#              #
-#    Updated: 2022/12/09 13:56:35 by sde-smed         ###   ########.fr        #
+#    Updated: 2022/12/18 16:51:34 by samy             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ LIB		=	-L ./libft -lft -L ./printf -lprintf -L ./get_next_line -lgnl -L /usr/loc
 SRCS	= 	main.c\
 			utils.c\
 			check.c\
-			render.c
+			render.c\
+			check_access.c
 			
 LIBFT	= libft/
 GNL	= get_next_line/
