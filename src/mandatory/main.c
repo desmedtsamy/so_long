@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:43:21 by samy              #+#    #+#             */
-/*   Updated: 2022/12/18 17:28:20 by samy             ###   ########.fr       */
+/*   Updated: 2022/12/19 14:51:58 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	main(int argc, char **argv)
 	start_check(argv[1], &game.map);
 	game.mlx = mlx_init();
 	col = game.map.column * SIZE;
-	row = game.map.row * SIZE;
+	row = game.map.row * SIZE + 42;
 	game.window = mlx_new_window(game.mlx, col, row, "pacman_42");
 	game.moves = 0;
 	mlx_key_hook(game.window, deal_keys, &game);

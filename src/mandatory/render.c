@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 13:53:52 by sde-smed          #+#    #+#             */
-/*   Updated: 2022/12/18 17:30:38 by samy             ###   ########.fr       */
+/*   Updated: 2022/12/20 09:52:01 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ void	print(int x, int y, t_game *game, t_sprites *sprites)
 void	set_sprites(t_game *game, t_sprites *sprites)
 {
 	int		s;
-	char	*paths[4];
 
 	s = SIZE;
-	paths[0] = "./sprites/wall.xmp";
-	paths[1] = "./sprites/pacman.xmp";
-	paths[2] = "./sprites/food.xmp";
-	paths[3] = "./sprites/exit.xmp";
-	sprites->wall = mlx_xpm_file_to_image(game->mlx, paths[0], &s, &s);
-	sprites->player = mlx_xpm_file_to_image(game->mlx, paths[1], &s, &s);
-	sprites->food = mlx_xpm_file_to_image(game->mlx, paths[2], &s, &s);
-	sprites->exit = mlx_xpm_file_to_image(game->mlx, paths[3], &s, &s);
+	sprites->wall = mlx_xpm_file_to_image(game->mlx, WALL, &s, &s);
+	sprites->player = mlx_xpm_file_to_image(game->mlx, PACMAN, &s, &s);
+	sprites->food = mlx_xpm_file_to_image(game->mlx, FOOD, &s, &s);
+	sprites->exit = mlx_xpm_file_to_image(game->mlx, EXIT, &s, &s);
+}
+
+void	print_score(t_game game)
+{
+	mlx_string_put ( game.mlx, game.window, (game.map.column * SIZE)/2, game.map.row * SIZE + 21, 0xccccff, "42" );
 }
 
 void	render_map(t_game *game)
@@ -66,14 +66,5 @@ void	render_map(t_game *game)
 	mlx_destroy_image(game->mlx, game->sprites.food);
 	mlx_destroy_image(game->mlx, game->sprites.exit);
 	ft_printf("%d\n", game->moves);
-}
-
-void	put_imagee(t_game game)
-{
-	int		size;
-	void	*img;
-
-	size = SIZE;
-	img = mlx_xpm_file_to_image(game.mlx, "./sprites/pacman.xmp", &size, &size);
-	mlx_put_image_to_window(game.mlx, game.window, img, 400, 300);
+	print_score(*game);
 }

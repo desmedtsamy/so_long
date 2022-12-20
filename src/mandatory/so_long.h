@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 21:53:32 by samy              #+#    #+#             */
-/*   Updated: 2022/12/18 16:50:54 by samy             ###   ########.fr       */
+/*   Updated: 2022/12/20 10:09:52 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 
 # include <mlx.h>
 # include <stdlib.h>
-# include "libft/libft.h"
-# include "get_next_line/get_next_line_bonus.h"
-# include "printf/ft_printf.h"
+# include <libft.h>
+# include <get_next_line_bonus.h>
+# include <ft_printf.h>
 
 # define DESTROYNOTIFY	17
 # define SIZE	32
+# define WALL "./sprites/wall.xmp"
+# define PACMAN "./sprites/pacman.xmp"
+# define FOOD "./sprites/food.xmp"
+# define EXIT "./sprites/exit.xmp"
 
 typedef struct s_vector
 {
@@ -65,9 +69,3 @@ int		can_win(t_map map);
 int		check_wall(t_map map);
 
 #endif
-/*
-compter l exit comme un mur
-prendre tt les food
-mettre un flag a 1 quand on rencontre l exit
-check si l'exit est a 1 a la fin
-*/
