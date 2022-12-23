@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   check_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:38:36 by sde-smed          #+#    #+#             */
-/*   Updated: 2022/12/23 10:57:17 by samy             ###   ########.fr       */
+/*   Updated: 2022/12/23 17:46:36 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 static int	nb_row(char *path)
 {
@@ -63,9 +63,6 @@ static void	init_value(t_map *map)
 	int	x;
 
 	x = -1;
-	map->spawn = 0;
-	map->food = 0;
-	map->exit = 0;
 	while (++x < map->row)
 	{
 		y = -1;
@@ -81,6 +78,8 @@ static void	init_value(t_map *map)
 				map->food++;
 			if (map->map[x][y] == 'E')
 				map->exit++;
+			if (map->map[x][y] == 'G')
+				map->number_enemies++;
 		}
 	}
 }
@@ -104,10 +103,39 @@ void	check_file(char *path, t_map *map)
 	init_value(map);
 }
 
+static void	init_ghosts(t_map *map)
+{
+	int	y;
+	int	x;
+	int	i;
+
+	x = -1;
+	i = 0;
+	map->enemies = malloc(map->number_enemies * sizeof(t_enemy));
+	while (++x < map->row)
+	{
+		y = -1;
+		while (++y < map->column)
+		{
+			if (map->map[x][y] == 'G')
+			{
+				map->enemies[i].pos.x = x;
+				map->enemies[i].old_value = '0';
+				map->enemies[i++].pos.y = y;
+			}
+		}
+	}
+}
+
 void	start_check(char *path, t_map *map)
 {
 	check_file(path, map);
+	map->spawn = 0;
+	map->food = 0;
+	map->exit = 0;
+	map->enemies = 0;
 	init_value(map);
+	init_ghosts(map);
 	if (check_wall(*map) == -1)
 		error("wall isn't ok\n", map);
 	if (map->food == 0)

@@ -3,15 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+         #
+#    By: samy <samy@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/04 11:24:14 by samy              #+#    #+#              #
-#    Updated: 2022/11/30 13:42:50 by sde-smed         ###   ########.fr        #
+#    Updated: 2022/12/20 12:12:46 by samy             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
+PRINTF = 	printf/ft_printf.c\
+		printf/ft_printf_utils.c\
+		printf/ft_printf_utils_print.c
+
+GNL = 	get_next_line/get_next_line.c\
+		get_next_line/get_next_line_utils.c
 SRC = 	ft_atoi.c\
 		ft_isalpha.c\
 		ft_isdigit.c\
@@ -48,7 +54,8 @@ SRC = 	ft_atoi.c\
 		ft_putnbr_fd.c\
 		ft_strrncmp.c
 		
-OBJ = $(SRC:.c=.o)
+SRCS = $(SRC) $(PRINTF) $(GNL)
+OBJ = $(SRCS:.c=.o)
 
 BONUS = ft_lstnew.c\
 		ft_lstadd_front.c\
@@ -74,6 +81,7 @@ RM		= rm -rf
 	@$(CC) $(FLAGS) -c -o $@ $<
 
 $(NAME): $(OBJ)
+	@echo "test libft"
 	@echo "make libft"
 	@$(ARRCS) $(NAME) $^
 	
@@ -83,12 +91,10 @@ bonus: $(OBJ_BONUS)
 all: $(NAME)
 
 clean:
-
-	@echo "make clean libft"
 	@$(RM) $(OBJ) $(OBJ_BONUS)
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 

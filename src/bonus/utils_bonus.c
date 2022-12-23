@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 10:20:29 by sde-smed          #+#    #+#             */
-/*   Updated: 2022/11/13 13:45:39 by samy             ###   ########.fr       */
+/*   Created: 2022/11/30 11:01:45 by sde-smed          #+#    #+#             */
+/*   Updated: 2022/12/20 12:23:51 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "so_long_bonus.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
+static void	free_map(t_map *map)
+{
+	int	i;
 
-char	*get_next_line(int fd);
-size_t	ft_strlen(char *s);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strchr(const char *s, int c);
-char	*ft_free(char **str);
-#endif
+	i = 0;
+	while (i < map->row)
+		free(map->map[i++]);
+	free(map->map);
+}
+
+void	error(char *message, t_map *map)
+{
+	ft_printf("Error\n%s", message);
+	if (map != NULL)
+		free_map(map);
+	exit(0);
+}

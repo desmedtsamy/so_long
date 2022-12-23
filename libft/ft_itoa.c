@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 12:32:40 by samy              #+#    #+#             */
-/*   Updated: 2022/11/30 10:55:14 by sde-smed         ###   ########.fr       */
+/*   Updated: 2022/12/20 12:12:24 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	count_nbr(int nb, int *count)
 	}
 }
 
-static void	ft_putnbr(int nb, char **result)
+static void	ft_putnbr_itoa(int nb, char **result)
 {
 	if (nb < 10)
 	{
@@ -32,8 +32,8 @@ static void	ft_putnbr(int nb, char **result)
 	}
 	else
 	{
-		ft_putnbr(nb / 10, result);
-		ft_putnbr(nb % 10, result);
+		ft_putnbr_itoa(nb / 10, result);
+		ft_putnbr_itoa(nb % 10, result);
 	}
 }
 
@@ -60,7 +60,7 @@ char	*ft_itoa(int n)
 	if (negatif)
 		*result = '-';
 	tmp = &result[negatif];
-	ft_putnbr(n, &tmp);
+	ft_putnbr_itoa(n, &tmp);
 	result[(count + negatif)] = 0;
 	return (result);
 }

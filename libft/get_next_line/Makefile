@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+         #
+#    By: samy <samy@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:43:52 by sde-smed          #+#    #+#              #
-#    Updated: 2022/11/30 13:42:36 by sde-smed         ###   ########.fr        #
+#    Updated: 2022/12/20 10:23:56 by samy             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,12 +38,10 @@ bonus: $(OBJ_BONUS)
 all: $(NAME)
 
 clean:
-
-	@echo "make clean get_next_line"
 	@$(RM) $(OBJ) $(OBJ_BONUS)
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 

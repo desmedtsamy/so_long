@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 19:51:21 by samy              #+#    #+#             */
-/*   Updated: 2022/10/31 10:19:09 by sde-smed         ###   ########.fr       */
+/*   Updated: 2022/12/20 12:05:39 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
-#include "ft_printf.h"
+#include "../libft.h"
 
 static int	format(va_list args, const char *str, int *count)
 {
