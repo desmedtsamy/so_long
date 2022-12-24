@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 21:53:32 by samy              #+#    #+#             */
-/*   Updated: 2022/12/23 17:45:37 by samy             ###   ########.fr       */
+/*   Updated: 2022/12/24 17:23:19 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,19 @@
 # define DESTROYNOTIFY	17
 # define SIZE	32
 # define WALL "./sprites/wall.xmp"
-# define PACMAN "./sprites/pacman.xmp"
 # define FOOD "./sprites/food.xmp"
 # define EXIT "./sprites/exit.xmp"
-# define ENEMY "./sprites/ghost.xmp"
+# define GHOST "./sprites/ghost.xmp"
+# define GHOST_2 "./sprites/ghost2.xmp"
+# define PACMAN_CLOSE "./sprites/pacman/pacman_close.xmp"
+# define PACMAN_SEMI_RIGHT "./sprites/pacman/pac_semi_right.xmp"
+# define PACMAN_OPEN_RIGHT "./sprites/pacman/pac_open_right.xmp"
+# define PACMAN_SEMI_LEFT "./sprites/pacman/pac_semi_left.xmp"
+# define PACMAN_OPEN_LEFT "./sprites/pacman/pac_open_left.xmp"
+# define PACMAN_SEMI_UP "./sprites/pacman/pac_semi_up.xmp"
+# define PACMAN_OPEN_UP "./sprites/pacman/pac_open_up.xmp"
+# define PACMAN_SEMI_DOWN "./sprites/pacman/pac_semi_down.xmp"
+# define PACMAN_OPEN_DOWN "./sprites/pacman/pac_open_down.xmp"
 
 typedef struct s_vector
 {
@@ -35,7 +44,7 @@ typedef struct s_vector
 typedef struct s_sprites
 {
 	void	*wall;
-	void	*player;
+	void	*pacman;
 	void	*food;
 	void	*exit;
 	void	*enemy;
@@ -64,9 +73,11 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*window;
-	int			frames;
 	int			moves;
 	char		*path;
+	char		update;
+	int			frames;
+	int			direction;
 	t_map		map;
 	t_sprites	sprites;
 }				t_game;
@@ -78,5 +89,7 @@ void	render_map(t_game *game);
 void	put_image(t_game game);
 int		can_win(t_map map);
 int		check_wall(t_map map);
+void	set_default_sprites(t_game *game, t_sprites *sprites);
+void	move(int x, int y, t_game *game);
 
 #endif

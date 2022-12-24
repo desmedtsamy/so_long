@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:43:21 by samy              #+#    #+#             */
-/*   Updated: 2022/12/23 17:59:32 by samy             ###   ########.fr       */
+/*   Updated: 2022/12/24 17:22:11 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ int	quit(void *param)
 	t_game	*game;
 
 	game = (t_game *)param;
+	mlx_destroy_image(game->mlx, game->sprites.wall);
+	mlx_destroy_image(game->mlx, game->sprites.food);
+	mlx_destroy_image(game->mlx, game->sprites.exit);
 	exit (0);
 	return (0);
 }
@@ -76,11 +79,19 @@ int	update(void *param)
 	t_game	*game;
 
 	game = (t_game *)param;
-	if (game->frames++ == 5000)
+	if (game->direction != 42 && game->frames++ == 200)
 	{
 		update_enemies(game);
+		if (game->direction == 2)
+			move(0, 1, game);
+		if (game->direction == 0)
+			move(0, -1, game);
+		if (game->direction == 13)
+			move(-1, 0, game);
+		if (game->direction == 1)
+			move(1, 0, game);
 		render_map(game);
-		game ->frames = 0;
+		game->frames = 0;
 	}
 	return (0);
 }
@@ -109,28 +120,23 @@ void	move(int x, int y, t_game *game)
 	game->map.player.y = player.y + y;
 	player.x = game->map.player.x;
 	player.y = game->map.player.y;
-	game->moves++;
-	ft_printf("%d\n", game->moves);
-	render_map(game);
 }
 
-int	deal_keys(int keycode, void *param)
+int	deal_keys(int kc, void *param)
 {
 	t_game		*game;
 	t_vector	pos;
 	char		str[42];
 
 	game = (t_game *)param;
-	if (keycode == 53)
+	if (kc == 53)
 		quit(param);
-	if (keycode == 124 || keycode == 2)
-		move(0, 1, game);
-	if (keycode == 123 || keycode == 0)
-		move(0, -1, game);
-	if (keycode == 126 || keycode == 13)
-		move(-1, 0, game);
-	if (keycode == 125 || keycode == 1)
-		move(1, 0, game);
+	if ((kc == 2 || kc == 0 || kc == 13 || kc == 1) && game->direction != kc)
+	{
+		game->direction = kc;
+		game->moves++;
+		ft_printf("%d\n", game->moves);
+	}
 	return (0);
 }
 
@@ -146,12 +152,15 @@ int	main(int argc, char **argv)
 		error("to much arguments", NULL);
 	start_check(argv[1], &game.map);
 	game.mlx = mlx_init();
-	game.frames = 0;
 	game.path = argv[1];
+	game.update = 0;
+	game.frames = 0;
+	game.direction = 42;
 	col = game.map.column * SIZE;
 	row = game.map.row * SIZE + 15;
 	game.window = mlx_new_window(game.mlx, col, row, "pacman_42");
 	game.moves = 0;
+	set_default_sprites(&game, &game.sprites);
 	mlx_key_hook(game.window, deal_keys, &game);
 	mlx_loop_hook(game.mlx, update, &game);
 	mlx_hook(game.window, DESTROYNOTIFY, 0, quit, &game);
