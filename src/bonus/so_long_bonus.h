@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 21:53:32 by samy              #+#    #+#             */
-/*   Updated: 2022/12/24 17:23:19 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/03 13:46:48 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "../../libft/libft.h"
 # include <fcntl.h>
 
+# define FRAMES 42
 # define DESTROYNOTIFY	17
 # define SIZE	32
 # define WALL "./sprites/wall.xmp"
@@ -35,6 +36,8 @@
 # define PACMAN_SEMI_DOWN "./sprites/pacman/pac_semi_down.xmp"
 # define PACMAN_OPEN_DOWN "./sprites/pacman/pac_open_down.xmp"
 
+# define EMPTY "./sprites/empty.xmp"
+
 typedef struct s_vector
 {
 	int			x;
@@ -48,12 +51,14 @@ typedef struct s_sprites
 	void	*food;
 	void	*exit;
 	void	*enemy;
+	void	*empty;
 }				t_sprites;
 
 typedef struct s_enemy
 {
 	t_vector	pos;
 	char		old_value;
+	t_vector	old_pos;
 }				t_enemy;
 
 typedef struct s_map
@@ -66,6 +71,7 @@ typedef struct s_map
 	char		**map;
 	t_enemy		*enemies;
 	int			number_enemies;
+	t_vector	old_pos;
 	t_vector	player;
 }				t_map;
 
@@ -91,5 +97,6 @@ int		can_win(t_map map);
 int		check_wall(t_map map);
 void	set_default_sprites(t_game *game, t_sprites *sprites);
 void	move(int x, int y, t_game *game);
+void	render_map_2(t_game *game);
 
 #endif

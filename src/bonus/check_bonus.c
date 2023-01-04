@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:38:36 by sde-smed          #+#    #+#             */
-/*   Updated: 2022/12/23 17:46:36 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/03 14:17:52 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	check_file(char *path, t_map *map)
 	if (map->map <= 0)
 		error("error while parsing\n", NULL);
 	map->column = ft_strlen(map->map[0]) - 1;
-	init_value(map);
 }
 
 static void	init_ghosts(t_map *map)
@@ -112,6 +111,8 @@ static void	init_ghosts(t_map *map)
 	x = -1;
 	i = 0;
 	map->enemies = malloc(map->number_enemies * sizeof(t_enemy));
+	if (!map->enemies)
+		error("can't malloc", NULL);
 	while (++x < map->row)
 	{
 		y = -1;
