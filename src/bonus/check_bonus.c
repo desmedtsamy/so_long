@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:38:36 by sde-smed          #+#    #+#             */
-/*   Updated: 2023/01/03 14:17:52 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/04 20:28:19 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	start_check(char *path, t_map *map)
 	map->spawn = 0;
 	map->food = 0;
 	map->exit = 0;
-	map->enemies = 0;
+	map->number_enemies = 0;
 	init_value(map);
 	init_ghosts(map);
 	if (check_wall(*map) == -1)

@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 13:53:52 by sde-smed          #+#    #+#             */
-/*   Updated: 2023/01/03 14:27:26 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/05 10:12:56 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,12 +134,10 @@ void	render_map_2(t_game *game)
 		mlx_put_image_to_window(game->mlx, game->window, game->sprites.empty, enemy.old_pos.y * SIZE, enemy.old_pos.x * SIZE);
 		print(enemy.pos.x, enemy.pos.y, game, &game->sprites, 'G');
 	}
-	if (!(player.x == game->map.old_pos.x && player.y == game->map.old_pos.y))
-	{
-		mlx_put_image_to_window(game->mlx, game->window, game->sprites.empty, game->map.old_pos.y * SIZE, game->map.old_pos.x * SIZE);
-		print(player.x, player.y, game, &game->sprites, 'P');
-	}
+	mlx_put_image_to_window(game->mlx, game->window, game->sprites.empty, game->map.old_pos.y * SIZE, game->map.old_pos.x * SIZE);
+	print(player.x, player.y, game, &game->sprites, 'P');
 	print_score(*game);
+	//regler le fait que les chifre s'ecrit sur les autres
 	mlx_destroy_image(game->mlx, game->sprites.pacman);
 	mlx_destroy_image(game->mlx, game->sprites.enemy);
 }

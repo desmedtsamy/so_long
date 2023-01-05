@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:43:21 by samy              #+#    #+#             */
-/*   Updated: 2023/01/04 11:31:49 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/04 21:42:55 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	update_enemies(t_game *game)
 	while (++i < game->map.number_enemies)
 	{
 		enemy = &game->map.enemies[i];
+		ft_printf("\n%d\n", game->map.number_enemies);
 		enemy->old_pos = enemy->pos;
 		if (enemy->pos.x < player.x && can_move_enemy(game, *enemy, 1, 0))
 			move_enemy(game, enemy, 1, 0);
@@ -77,7 +78,7 @@ int	update(void *param)
 	t_game	*game;
 
 	game = (t_game *)param;
-	if (game->direction != 42)
+	if (game->direction != 42 && game->frames++ == 700)
 	{
 		update_enemies(game);
 		if (game->direction == 2)
@@ -88,9 +89,9 @@ int	update(void *param)
 			move(-1, 0, game);
 		if (game->direction == 1)
 			move(1, 0, game);
-		//game->frames = 0;
+		game->frames = 0;
+		render_map_2(game);
 	}
-	render_map_2(game);
 	return (0);
 }
 
