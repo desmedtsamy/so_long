@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:38:36 by sde-smed          #+#    #+#             */
-/*   Updated: 2023/01/04 20:28:19 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/05 15:33:13 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,34 +57,7 @@ static char	**parse(int fd, int nb_row)
 	return (map);
 }
 
-static void	init_value(t_map *map)
-{
-	int	y;
-	int	x;
-
-	x = -1;
-	while (++x < map->row)
-	{
-		y = -1;
-		while (++y < map->column)
-		{
-			if (map->map[x][y] == 'P')
-			{
-				map->spawn++;
-				map->player.x = x;
-				map->player.y = y;
-			}
-			if (map->map[x][y] == 'C')
-				map->food++;
-			if (map->map[x][y] == 'E')
-				map->exit++;
-			if (map->map[x][y] == 'G')
-				map->number_enemies++;
-		}
-	}
-}
-
-void	check_file(char *path, t_map *map)
+static void	check_file(char *path, t_map *map)
 {
 	int		fd;
 
@@ -100,32 +73,6 @@ void	check_file(char *path, t_map *map)
 	if (map->map <= 0)
 		error("error while parsing\n", NULL);
 	map->column = ft_strlen(map->map[0]) - 1;
-}
-
-static void	init_ghosts(t_map *map)
-{
-	int	y;
-	int	x;
-	int	i;
-
-	x = -1;
-	i = 0;
-	map->enemies = malloc(map->number_enemies * sizeof(t_enemy));
-	if (!map->enemies)
-		error("can't malloc", NULL);
-	while (++x < map->row)
-	{
-		y = -1;
-		while (++y < map->column)
-		{
-			if (map->map[x][y] == 'G')
-			{
-				map->enemies[i].pos.x = x;
-				map->enemies[i].old_value = '0';
-				map->enemies[i++].pos.y = y;
-			}
-		}
-	}
 }
 
 void	start_check(char *path, t_map *map)

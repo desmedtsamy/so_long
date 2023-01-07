@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 13:53:52 by sde-smed          #+#    #+#             */
-/*   Updated: 2022/12/20 12:21:20 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/07 00:41:15 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,4 @@ void	render_map(t_game *game)
 	mlx_destroy_image(game->mlx, game->sprites.player);
 	mlx_destroy_image(game->mlx, game->sprites.food);
 	mlx_destroy_image(game->mlx, game->sprites.exit);
-	ft_printf("%d\n", game->moves);
 }

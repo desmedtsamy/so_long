@@ -6,7 +6,7 @@
 #    By: samy <samy@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:51:56 by sde-smed          #+#    #+#              #
-#    Updated: 2022/12/20 15:06:45 by samy             ###   ########.fr        #
+#    Updated: 2023/01/07 01:21:02 by samy             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,10 @@ BONUS_SRCS	= 	src/bonus/main_bonus.c\
 			src/bonus/utils_bonus.c\
 			src/bonus/check_bonus.c\
 			src/bonus/render_bonus.c\
-			src/bonus/check_access_bonus.c
+			src/bonus/init_game_bonus.c\
+			src/bonus/check_access_bonus.c\
+			src/bonus/move_bonus.c\
+			src/bonus/sprites_bonus.c
 			
 LIBFT	= libft/
 

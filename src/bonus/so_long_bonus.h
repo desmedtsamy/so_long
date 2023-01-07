@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 21:53:32 by samy              #+#    #+#             */
-/*   Updated: 2023/01/03 13:46:48 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/07 01:23:38 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include "../../libft/libft.h"
 # include <fcntl.h>
 
-# define FRAMES 42
 # define DESTROYNOTIFY	17
 # define SIZE	32
 # define WALL "./sprites/wall.xmp"
@@ -98,5 +97,13 @@ int		check_wall(t_map map);
 void	set_default_sprites(t_game *game, t_sprites *sprites);
 void	move(int x, int y, t_game *game);
 void	render_map_2(t_game *game);
-
+void	init_value(t_map *map);
+void	init_ghosts(t_map *map);
+void	set_sprites(t_game *game, t_sprites *sprites);
+void	set_default_sprites(t_game *game, t_sprites *sprites);
+int		can_move_enemy(t_game *game, t_enemy enemy, int x, int y);
+void	move_enemy(t_game *game, t_enemy *enemy, int x, int y);
+void	update_enemies(t_game *game);
+void	move(int x, int y, t_game *game);
+int		quit(void *param);
 #endif

@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:43:21 by samy              #+#    #+#             */
-/*   Updated: 2023/01/04 21:42:55 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/07 01:22:35 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,60 +25,12 @@ int	quit(void *param)
 	return (0);
 }
 
-int	can_move_enemy(t_game *game, t_enemy enemy, int x, int y)
-{
-	char	pos;
-
-	pos = game->map.map[enemy.pos.x + x][enemy.pos.y + y];
-	if (pos == '1' || pos == 'E' || pos == 'G')
-		return (0);
-	return (1);
-}
-
-void	move_enemy(t_game *game, t_enemy *enemy, int x, int y)
-{
-	game->map.map[enemy->pos.x][enemy->pos.y] = enemy->old_value;
-	enemy->old_value = game->map.map[enemy->pos.x + x][enemy->pos.y + y];
-	if (enemy->old_value == 'P')
-	{
-		ft_printf("\n%s", "you were eaten");
-		quit(game);
-	}
-	game->map.map[enemy->pos.x + x][enemy->pos.y + y] = 'G';
-	enemy->pos.x = enemy->pos.x + x;
-	enemy->pos.y = enemy->pos.y + y;
-}
-
-void	update_enemies(t_game *game)
-{
-	int			i;
-	t_enemy		*enemy;
-	t_vector	player;
-
-	i = -1;
-	player = game->map.player;
-	while (++i < game->map.number_enemies)
-	{
-		enemy = &game->map.enemies[i];
-		ft_printf("\n%d\n", game->map.number_enemies);
-		enemy->old_pos = enemy->pos;
-		if (enemy->pos.x < player.x && can_move_enemy(game, *enemy, 1, 0))
-			move_enemy(game, enemy, 1, 0);
-		else if (enemy->pos.x > player.x && can_move_enemy(game, *enemy, -1, 0))
-			move_enemy(game, enemy, -1, 0);
-		else if (enemy->pos.y > player.y && can_move_enemy(game, *enemy, 0, -1))
-			move_enemy(game, enemy, 0, -1);
-		else if (enemy->pos.y < player.y && can_move_enemy(game, *enemy, 0, 1))
-			move_enemy(game, enemy, 0, 1);
-	}
-}
-
-int	update(void *param)
+static int	update(void *param)
 {
 	t_game	*game;
 
 	game = (t_game *)param;
-	if (game->direction != 42 && game->frames++ == 700)
+	if (game->direction != 42 && game->frames++ == 1000)
 	{
 		update_enemies(game);
 		if (game->direction == 2)
@@ -95,32 +47,7 @@ int	update(void *param)
 	return (0);
 }
 
-void	move(int x, int y, t_game *game)
-{
-	t_vector	player;
-
-	player = game->map.player;
-	game->map.old_pos = player;
-	if (game->map.map[player.x + x][player.y + y] == '1')
-		return ;
-	if (game->map.map[player.x + x][player.y + y] == 'E')
-	{
-		if (game->map.food == 0)
-		{
-			ft_printf("You win");
-			quit(game);
-		}
-		return ;
-	}
-	if (game->map.map[player.x + x][player.y + y] == 'C')
-		game->map.food--;
-	game->map.map[player.x][player.y] = '0';
-	game->map.map[player.x + x][player.y + y] = 'P';
-	game->map.player.x = player.x + x;
-	game->map.player.y = player.y + y;
-}
-
-int	deal_keys(int key, void *param)
+static int	deal_keys(int key, void *param)
 {
 	t_game		*game;
 	t_vector	pos;
@@ -129,20 +56,19 @@ int	deal_keys(int key, void *param)
 	game = (t_game *)param;
 	if (key == 53)
 		quit(param);
-	if ((key == 2 || key == 0 || key == 13 || key == 1) && game->direction != key)
+	if (key == 2 || key == 0 || key == 13 || key == 1)
 	{
-		game->direction = key;
-		game->moves++;
-		game->frames = FRAMES;
-		update(param);
-		ft_printf("%d\n", game->moves);
+		if (game->direction != key)
+		{
+			game->direction = key;
+			game->moves++;
+			ft_printf("%d\n", game->moves);
+		}
 	}
 	return (0);
 }
 
-/*une fonction qui affiche coucou*/
-
-void	init_game(t_game *game, char * path)
+static void	init_game(t_game *game, char *path)
 {
 	game->mlx = mlx_init();
 	game->path = path;
@@ -155,7 +81,7 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 	int		col;
-	int		row;   
+	int		row;
 
 	if (argc < 2)
 		error("no map in arguments", NULL);
