@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 01:13:02 by samy              #+#    #+#             */
-/*   Updated: 2023/01/08 16:10:17 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/08 16:35:15 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,26 @@ static void	set_img(void **sprite, t_game game, char *name)
 
 static void	set_sprites_1(t_game *game, t_sprites *sprites)
 {
-	if (game->map.player.direction == 2)
+	if (game->map.player.current_direction == 2)
 		set_img(&sprites->pacman, *game, PACMAN_SEMI_RIGHT);
-	else if (game->map.player.direction == 0)
+	else if (game->map.player.current_direction == 0)
 		set_img(&sprites->pacman, *game, PACMAN_SEMI_LEFT);
-	else if (game->map.player.direction == 13)
+	else if (game->map.player.current_direction == 13)
 		set_img(&sprites->pacman, *game, PACMAN_SEMI_UP);
-	else if (game->map.player.direction == 1)
+	else if (game->map.player.current_direction == 1)
 		set_img(&sprites->pacman, *game, PACMAN_SEMI_DOWN);
 	set_img(&sprites->enemy, *game, GHOST);
 }
 
 static void	set_sprites_2(t_game *game, t_sprites *sprites)
 {
-	if (game->map.player.direction == 2)
+	if (game->map.player.current_direction == 2)
 		set_img(&sprites->pacman, *game, PACMAN_OPEN_RIGHT);
-	else if (game->map.player.direction == 0)
+	else if (game->map.player.current_direction == 0)
 		set_img(&sprites->pacman, *game, PACMAN_OPEN_LEFT);
-	else if (game->map.player.direction == 13)
+	else if (game->map.player.current_direction == 13)
 		set_img(&sprites->pacman, *game, PACMAN_OPEN_UP);
-	else if (game->map.player.direction == 1)
+	else if (game->map.player.current_direction == 1)
 		set_img(&sprites->pacman, *game, PACMAN_OPEN_DOWN);
 	set_img(&sprites->enemy, *game, GHOST_2);
 }
@@ -63,7 +63,7 @@ void	set_sprites(t_game *game, t_sprites *sprites)
 	{
 		set_img(&sprites->pacman, *game, PACMAN_CLOSE);
 		set_img(&sprites->enemy, *game, GHOST);
-		if (game->map.player.direction != 42)
+		if (game->map.player.current_direction != 42)
 			game->update = 1;
 	}
 	else if (game->update == 1)

@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 21:53:32 by samy              #+#    #+#             */
-/*   Updated: 2023/01/08 16:07:46 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/08 16:37:46 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ typedef struct s_player
 {
 	t_vector	pos;
 	t_vector	old_pos;
-	int			direction;
+	int			new_direction;
+	int			current_direction;
 	int			old_direction;
 }				t_player;
 
@@ -102,15 +103,12 @@ void	put_image(t_game game);
 int		can_win(t_map map);
 int		check_wall(t_map map);
 void	set_default_sprites(t_game *game, t_sprites *sprites);
-void	move(int x, int y, t_game *game);
 void	render_map_2(t_game *game);
 void	init_value(t_map *map);
 void	init_ghosts(t_map *map);
 void	set_sprites(t_game *game, t_sprites *sprites);
 void	set_default_sprites(t_game *game, t_sprites *sprites);
-int		can_move_enemy(t_game *game, t_enemy enemy, int x, int y);
-void	move_enemy(t_game *game, t_enemy *enemy, int x, int y);
 void	update_enemies(t_game *game);
-void	move(int x, int y, t_game *game);
+void	update_player(t_game *game);
 int		quit(void *param);
 #endif
