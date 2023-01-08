@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 01:19:37 by samy              #+#    #+#             */
-/*   Updated: 2023/01/07 01:21:54 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/08 16:09:02 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	move(int x, int y, t_game *game)
 {
 	t_vector	player;
 
-	player = game->map.player;
-	game->map.old_pos = player;
+	player = game->map.player.pos;
+	game->map.player.old_pos = player;
 	if (game->map.map[player.x + x][player.y + y] == '1')
 		return ;
 	if (game->map.map[player.x + x][player.y + y] == 'E')
@@ -57,8 +57,13 @@ void	move(int x, int y, t_game *game)
 		game->map.food--;
 	game->map.map[player.x][player.y] = '0';
 	game->map.map[player.x + x][player.y + y] = 'P';
-	game->map.player.x = player.x + x;
-	game->map.player.y = player.y + y;
+	game->map.player.pos.x = player.x + x;
+	game->map.player.pos.y = player.y + y;
+}
+
+void	update_player(t_game *game)
+{
+
 }
 
 void	update_enemies(t_game *game)
@@ -68,7 +73,7 @@ void	update_enemies(t_game *game)
 	t_vector	player;
 
 	i = -1;
-	player = game->map.player;
+	player = game->map.player.pos;
 	while (++i < game->map.number_enemies)
 	{
 		enemy = &game->map.enemies[i];

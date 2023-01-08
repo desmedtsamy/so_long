@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 16:48:27 by samy              #+#    #+#             */
-/*   Updated: 2023/01/05 15:27:01 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/08 16:09:39 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	can_win(t_map map)
 	i = -1;
 	while (++i < map.row)
 		cpy[i] = ft_strdup(map.map[i]);
-	check_access(map.player.x, map.player.y, cpy);
+	check_access(map.player.pos.x, map.player.pos.y, cpy);
 	finish = is_finish(cpy, map.row, map.column);
 	i = -1;
 	while (++i < map.row)

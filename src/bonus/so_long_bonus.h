@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 21:53:32 by samy              #+#    #+#             */
-/*   Updated: 2023/01/07 01:23:38 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/08 16:07:46 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "../../libft/libft.h"
 # include <fcntl.h>
 
+# define FRAMES	850
 # define DESTROYNOTIFY	17
 # define SIZE	32
 # define WALL "./sprites/wall.xmp"
@@ -60,6 +61,14 @@ typedef struct s_enemy
 	t_vector	old_pos;
 }				t_enemy;
 
+typedef struct s_player
+{
+	t_vector	pos;
+	t_vector	old_pos;
+	int			direction;
+	int			old_direction;
+}				t_player;
+
 typedef struct s_map
 {
 	int			row;
@@ -69,9 +78,8 @@ typedef struct s_map
 	int			exit;
 	char		**map;
 	t_enemy		*enemies;
+	t_player	player;
 	int			number_enemies;
-	t_vector	old_pos;
-	t_vector	player;
 }				t_map;
 
 typedef struct s_game
@@ -82,7 +90,6 @@ typedef struct s_game
 	char		*path;
 	char		update;
 	int			frames;
-	int			direction;
 	t_map		map;
 	t_sprites	sprites;
 }				t_game;

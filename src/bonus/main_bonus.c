@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:43:21 by samy              #+#    #+#             */
-/*   Updated: 2023/01/07 01:22:35 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/08 16:08:33 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ static int	update(void *param)
 	t_game	*game;
 
 	game = (t_game *)param;
-	if (game->direction != 42 && game->frames++ == 1000)
+	if (game->map.player.direction != 42 && game->frames++ == FRAMES)
 	{
 		update_enemies(game);
-		if (game->direction == 2)
+		if (game->map.player.direction == 2)
 			move(0, 1, game);
-		if (game->direction == 0)
+		if (game->map.player.direction == 0)
 			move(0, -1, game);
-		if (game->direction == 13)
+		if (game->map.player.direction == 13)
 			move(-1, 0, game);
-		if (game->direction == 1)
+		if (game->map.player.direction == 1)
 			move(1, 0, game);
 		game->frames = 0;
 		render_map_2(game);
@@ -58,9 +58,9 @@ static int	deal_keys(int key, void *param)
 		quit(param);
 	if (key == 2 || key == 0 || key == 13 || key == 1)
 	{
-		if (game->direction != key)
+		if (game->map.player.direction != key)
 		{
-			game->direction = key;
+			game->map.player.direction = key;
 			game->moves++;
 			ft_printf("%d\n", game->moves);
 		}
@@ -74,7 +74,8 @@ static void	init_game(t_game *game, char *path)
 	game->path = path;
 	game->update = 0;
 	game->frames = 0;
-	game->direction = 42;
+	game->map.player.direction = 42;
+	game->map.player.old_direction = 42;
 }
 
 int	main(int argc, char **argv)

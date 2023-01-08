@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 13:53:52 by sde-smed          #+#    #+#             */
-/*   Updated: 2023/01/07 01:36:11 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/08 16:09:24 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	render_map_2(t_game *game)
 	t_enemy		enemy;
 	char		old_pos_value;
 
-	player = game->map.player;
+	player = game->map.player.pos;
 	set_sprites(game, &game->sprites);
 	i = -1;
 	while (++i < game->map.number_enemies)
@@ -82,7 +82,7 @@ void	render_map_2(t_game *game)
 			print(enemy.old_pos, game, &game->sprites, old_pos_value);
 		print(enemy.pos, game, &game->sprites, 'G');
 	}
-	print(game->map.old_pos, game, &game->sprites, '0');
+	print(game->map.player.old_pos, game, &game->sprites, '0');
 	print(player, game, &game->sprites, 'P');
 	i = game->map.row * SIZE;
 	mlx_put_image_to_window(game->mlx, game->window, game->sprites.empty, 0, i);
