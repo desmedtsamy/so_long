@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_bonus.c                                      :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 11:01:45 by sde-smed          #+#    #+#             */
-/*   Updated: 2023/01/09 11:29:32 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/08 13:47:06 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_bonus.h"
+#include "so_long.h"
 
-void	free_map(t_map *map)
+static void	free_map(t_map *map)
 {
 	int	i;
 
@@ -20,7 +20,6 @@ void	free_map(t_map *map)
 	while (i < map->row)
 		free(map->map[i++]);
 	free(map->map);
-	free(map->enemies);
 }
 
 void	error(char *message, t_map *map)

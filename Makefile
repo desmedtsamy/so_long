@@ -6,7 +6,7 @@
 #    By: samy <samy@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:51:56 by sde-smed          #+#    #+#              #
-#    Updated: 2023/01/08 16:38:41 by samy             ###   ########.fr        #
+#    Updated: 2023/01/08 17:48:33 by samy             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ SRCS	= 	src/mandatory/main.c\
 			src/mandatory/utils.c\
 			src/mandatory/check.c\
 			src/mandatory/render.c\
-			src/mandatory/check_access.c
+			src/mandatory/init_game.c\
+			src/mandatory/check_access.c\
+			src/mandatory/player.c
 			
 BONUS_SRCS	= 	src/bonus/main_bonus.c\
 			src/bonus/utils_bonus.c\

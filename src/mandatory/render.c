@@ -6,58 +6,56 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 13:53:52 by sde-smed          #+#    #+#             */
-/*   Updated: 2023/01/07 00:41:15 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/09 11:40:01 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	print(int x, int y, t_game *game, t_sprites *sprites)
+void	print(t_vector pos, t_game *game, t_sprites *sprites, char val)
 {
-	int	w;
-	int	h;
+	int	r;
+	int	c;
 
-	w = y * SIZE;
-	h = x * SIZE;
-	if (game->map.map[x][y] == '1')
-		mlx_put_image_to_window(game->mlx, game->window, sprites->wall, w, h);
-	else if (game->map.map[x][y] == 'P')
-		mlx_put_image_to_window(game->mlx, game->window, sprites->player, w, h);
-	else if (game->map.map[x][y] == 'C')
-		mlx_put_image_to_window(game->mlx, game->window, sprites->food, w, h);
-	else if (game->map.map[x][y] == 'E')
-		mlx_put_image_to_window(game->mlx, game->window, sprites->exit, w, h);
-}
-
-void	set_sprites(t_game *game, t_sprites *sprites)
-{
-	int		s;
-
-	s = SIZE;
-	sprites->wall = mlx_xpm_file_to_image(game->mlx, WALL, &s, &s);
-	sprites->player = mlx_xpm_file_to_image(game->mlx, PACMAN, &s, &s);
-	sprites->food = mlx_xpm_file_to_image(game->mlx, FOOD, &s, &s);
-	sprites->exit = mlx_xpm_file_to_image(game->mlx, EXIT, &s, &s);
+	r = pos.y * SIZE;
+	c = pos.x * SIZE;
+	if (val == '1')
+		mlx_put_image_to_window(game->mlx, game->window, sprites->wall, r, c);
+	else if (val == 'P')
+		mlx_put_image_to_window(game->mlx, game->window, sprites->pacman, r, c);
+	else if (val == 'C')
+		mlx_put_image_to_window(game->mlx, game->window, sprites->food, r, c);
+	else if (val == 'E')
+		mlx_put_image_to_window(game->mlx, game->window, sprites->exit, r, c);
+	else if (val == '0')
+		mlx_put_image_to_window(game->mlx, game->window, sprites->empty, r, c);
 }
 
 void	render_map(t_game *game)
 {
 	t_vector	p;
-	t_sprites	*sprites;
+	int			s;
 
-	sprites = &game->sprites;
+	s = SIZE;
 	p.x = 0;
-	set_sprites(game, &game->sprites);
-	mlx_clear_window(game->mlx, game->window);
 	while (p.x < game->map.row)
 	{
-		p.y = 0;
-		while (p.y < game->map.column)
-			print(p.x, p.y++, game, sprites);
+		p.y = -1;
+		while (++p.y < game->map.column)
+			print(p, game, &game->sprites, game->map.map[p.x][p.y]);
 		p.x++;
 	}
 	mlx_destroy_image(game->mlx, game->sprites.wall);
-	mlx_destroy_image(game->mlx, game->sprites.player);
 	mlx_destroy_image(game->mlx, game->sprites.food);
 	mlx_destroy_image(game->mlx, game->sprites.exit);
+}
+
+void	render_map_2(t_game *game)
+{
+	t_vector	player;
+	char		old_pos_value;
+
+	player = game->map.player.pos;
+	print(game->map.player.old_pos, game, &game->sprites, '0');
+	print(player, game, &game->sprites, 'P');
 }

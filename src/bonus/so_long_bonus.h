@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 21:53:32 by samy              #+#    #+#             */
-/*   Updated: 2023/01/08 16:37:46 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/09 11:30:23 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,12 @@ int		can_win(t_map map);
 int		check_wall(t_map map);
 void	set_default_sprites(t_game *game, t_sprites *sprites);
 void	render_map_2(t_game *game);
-void	init_value(t_map *map);
+int		init_value(t_map *map);
 void	init_ghosts(t_map *map);
 void	set_sprites(t_game *game, t_sprites *sprites);
 void	set_default_sprites(t_game *game, t_sprites *sprites);
 void	update_enemies(t_game *game);
 void	update_player(t_game *game);
 int		quit(void *param);
+void	free_map(t_map *map);
 #endif

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_game_bonus.c                                  :+:      :+:    :+:   */
+/*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 15:29:55 by samy              #+#    #+#             */
-/*   Updated: 2023/01/08 17:35:15 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/08 17:44:31 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_bonus.h"
+#include "so_long.h"
 
 int	check_value(t_map *map, int x, int y)
 {
@@ -24,8 +24,6 @@ int	check_value(t_map *map, int x, int y)
 		map->food++;
 	else if (map->map[x][y] == 'E')
 		map->exit++;
-	else if (map->map[x][y] == 'G')
-		map->number_enemies++;
 	else if (map->map[x][y] != '0' && map->map[x][y] != '1')
 		return (0);
 	return (1);
@@ -45,30 +43,4 @@ int	init_value(t_map *map)
 				return (0);
 	}
 	return (1);
-}
-
-void	init_ghosts(t_map *map)
-{
-	int	y;
-	int	x;
-	int	i;
-
-	x = -1;
-	i = 0;
-	map->enemies = malloc(map->number_enemies * sizeof(t_enemy));
-	if (!map->enemies)
-		error("can't malloc", NULL);
-	while (++x < map->row)
-	{
-		y = -1;
-		while (++y < map->column)
-		{
-			if (map->map[x][y] == 'G')
-			{
-				map->enemies[i].pos.x = x;
-				map->enemies[i].old_value = '0';
-				map->enemies[i++].pos.y = y;
-			}
-		}
-	}
 }

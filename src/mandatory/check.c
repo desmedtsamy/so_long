@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:38:36 by sde-smed          #+#    #+#             */
-/*   Updated: 2022/12/23 10:57:17 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/08 17:45:51 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,35 +57,7 @@ static char	**parse(int fd, int nb_row)
 	return (map);
 }
 
-static void	init_value(t_map *map)
-{
-	int	y;
-	int	x;
-
-	x = -1;
-	map->spawn = 0;
-	map->food = 0;
-	map->exit = 0;
-	while (++x < map->row)
-	{
-		y = -1;
-		while (++y < map->column)
-		{
-			if (map->map[x][y] == 'P')
-			{
-				map->spawn++;
-				map->player.x = x;
-				map->player.y = y;
-			}
-			if (map->map[x][y] == 'C')
-				map->food++;
-			if (map->map[x][y] == 'E')
-				map->exit++;
-		}
-	}
-}
-
-void	check_file(char *path, t_map *map)
+static void	check_file(char *path, t_map *map)
 {
 	int		fd;
 
@@ -101,13 +73,16 @@ void	check_file(char *path, t_map *map)
 	if (map->map <= 0)
 		error("error while parsing\n", NULL);
 	map->column = ft_strlen(map->map[0]) - 1;
-	init_value(map);
 }
 
 void	start_check(char *path, t_map *map)
 {
 	check_file(path, map);
-	init_value(map);
+	map->spawn = 0;
+	map->food = 0;
+	map->exit = 0;
+	if (!init_value(map))
+		error("unknow value in map\n", map);
 	if (check_wall(*map) == -1)
 		error("wall isn't ok\n", map);
 	if (map->food == 0)

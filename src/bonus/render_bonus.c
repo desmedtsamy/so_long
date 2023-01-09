@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 13:53:52 by sde-smed          #+#    #+#             */
-/*   Updated: 2023/01/08 16:09:24 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/08 17:35:40 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	render_map(t_game *game)
 	print_score(*game);
 	mlx_destroy_image(game->mlx, game->sprites.pacman);
 	mlx_destroy_image(game->mlx, game->sprites.enemy);
+	mlx_destroy_image(game->mlx, game->sprites.wall);
+	mlx_destroy_image(game->mlx, game->sprites.exit);
 }
 
 void	render_map_2(t_game *game)

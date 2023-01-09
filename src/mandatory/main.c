@@ -6,7 +6,7 @@
 /*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:43:21 by samy              #+#    #+#             */
-/*   Updated: 2022/12/20 12:21:02 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/09 11:39:42 by samy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,56 +17,59 @@ int	quit(void *param)
 	t_game	*game;
 
 	game = (t_game *)param;
-	exit(0);
+	mlx_destroy_image(game->mlx, game->sprites.empty);
+	mlx_destroy_image(game->mlx, game->sprites.pacman);
+	mlx_destroy_window(game->mlx, game->window);
+	free_map(&game->map);
+	exit (0);
+	return (0);
 }
 
-void	move(int x, int y, t_game *game)
+static int	update(void *param)
 {
-	t_vector	player;
+	t_game	*game;
 
-	player.x = game->map.player.x;
-	player.y = game->map.player.y;
-	if (game->map.map[player.x + x][player.y + y] == '1')
-		return ;
-	if (game->map.map[player.x + x][player.y + y] == 'E')
+	game = (t_game *)param;
+	if (game->map.player.new_direction != 42 && game->frames++ == FRAMES)
 	{
-		if (game->map.food == 0)
-		{
-			ft_printf("\nYou win\n");
-			quit(&game);
-		}
-		return ;
+		update_player(game);
+		render_map_2(game);
+		game->frames = 0;
 	}
-	if (game->map.map[player.x + x][player.y + y] == 'C')
-		game->map.food--;
-	game->map.map[player.x][player.y] = '0';
-	game->map.map[player.x + x][player.y + y] = 'P';
-	game->map.player.x = player.x + x;
-	game->map.player.y = player.y + y;
-	player.x = game->map.player.x;
-	player.y = game->map.player.y;
-	game->moves++;
-	render_map(game);
+	return (0);
 }
 
-int	deal_keys(int keycode, void *param)
+static int	deal_keys(int key, void *param)
 {
 	t_game		*game;
 	t_vector	pos;
 	char		str[42];
 
 	game = (t_game *)param;
-	if (keycode == 53)
+	if (key == 53)
 		quit(param);
-	if (keycode == 124 || keycode == 2)
-		move(0, 1, game);
-	if (keycode == 123 || keycode == 0)
-		move(0, -1, game);
-	if (keycode == 126 || keycode == 13)
-		move(-1, 0, game);
-	if (keycode == 125 || keycode == 1)
-		move(1, 0, game);
+	if (key == 2 || key == 0 || key == 13 || key == 1)
+	{
+		if (game->map.player.new_direction != key)
+		{
+			game->map.player.old_direction = game->map.player.new_direction;
+			game->map.player.new_direction = key;
+			game->moves++;
+			ft_printf("%d\n", game->moves);
+		}
+	}
 	return (0);
+}
+
+static void	init_game(t_game *game, char *path)
+{
+	game->mlx = mlx_init();
+	game->path = path;
+	game->update = 0;
+	game->frames = 0;
+	game->map.player.new_direction = 42;
+	game->map.player.current_direction = 42;
+	game->map.player.old_direction = 42;
 }
 
 int	main(int argc, char **argv)
@@ -80,12 +83,14 @@ int	main(int argc, char **argv)
 	if (argc > 2)
 		error("to much arguments", NULL);
 	start_check(argv[1], &game.map);
-	game.mlx = mlx_init();
+	init_game(&game, argv[1]);
 	col = game.map.column * SIZE;
 	row = game.map.row * SIZE;
 	game.window = mlx_new_window(game.mlx, col, row, "pacman_42");
 	game.moves = 0;
+	set_default_sprites(&game, &game.sprites);
 	mlx_key_hook(game.window, deal_keys, &game);
+	mlx_loop_hook(game.mlx, update, &game);
 	mlx_hook(game.window, DESTROYNOTIFY, 0, quit, &game);
 	render_map(&game);
 	mlx_loop(game.mlx);
