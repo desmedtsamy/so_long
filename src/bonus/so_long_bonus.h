@@ -6,7 +6,7 @@
 /*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 21:53:32 by samy              #+#    #+#             */
-/*   Updated: 2023/01/10 12:21:36 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/01/10 12:29:00 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ void	set_sprites(t_game *game, t_sprites *sprites);
 void	set_default_sprites(t_game *game, t_sprites *sprites);
 void	update_enemies(t_game *game);
 void	update_player(t_game *game);
+int		quit(void *param);
 void	free_map(t_map *map);
 #endif
