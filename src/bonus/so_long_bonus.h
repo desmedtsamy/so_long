@@ -6,7 +6,7 @@
 /*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 21:53:32 by samy              #+#    #+#             */
-/*   Updated: 2023/01/10 12:29:00 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/01/10 12:43:01 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int		check_wall(t_map map);
 void	set_default_sprites(t_game *game, t_sprites *sprites);
 void	render_map_2(t_game *game);
 int		init_value(t_map *map);
-void	init_ghosts(t_map *map);
+void	init_enemies(t_map *map);
 void	set_sprites(t_game *game, t_sprites *sprites);
 void	set_default_sprites(t_game *game, t_sprites *sprites);
 void	update_enemies(t_game *game);

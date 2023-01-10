@@ -6,13 +6,13 @@
 /*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 13:53:52 by sde-smed          #+#    #+#             */
-/*   Updated: 2023/01/10 12:10:02 by sde-smed         ###   ########.fr       */
+/*   Updated: 2023/01/10 12:45:03 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	print(t_vector pos, t_game *game, t_sprites *sprites, char val)
+static void	print(t_vector pos, t_game *game, t_sprites *sprites, char val)
 {
 	int	r;
 	int	c;
@@ -33,7 +33,7 @@ void	print(t_vector pos, t_game *game, t_sprites *sprites, char val)
 		mlx_put_image_to_window(game->mlx, game->window, sprites->empty, r, c);
 }
 
-void	print_score(t_game game)
+static void	print_score(t_game game)
 {
 	char	*moves;
 	int		pos;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:38:36 by sde-smed          #+#    #+#             */
-/*   Updated: 2023/01/08 17:36:57 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/10 12:43:04 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	start_check(char *path, t_map *map)
 	map->number_enemies = 0;
 	if (!init_value(map))
 		error("unknow value in map\n", map);
-	init_ghosts(map);
+	init_enemies(map);
 	if (check_wall(*map) == -1)
 		error("wall isn't ok\n", map);
 	if (map->food == 0)

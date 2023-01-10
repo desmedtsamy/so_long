@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 13:53:52 by sde-smed          #+#    #+#             */
-/*   Updated: 2023/01/09 11:40:01 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/10 12:47:27 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	print(t_vector pos, t_game *game, t_sprites *sprites, char val)
+static void	print(t_vector pos, t_game *game, t_sprites *sprites, char val)
 {
 	int	r;
 	int	c;

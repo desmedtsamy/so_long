@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 15:29:55 by samy              #+#    #+#             */
-/*   Updated: 2023/01/08 17:44:31 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/10 12:42:03 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	check_value(t_map *map, int x, int y)
+static int	check_value(t_map *map, int x, int y)
 {
 	if (map->map[x][y] == 'P')
 	{
