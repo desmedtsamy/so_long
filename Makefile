@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: samy <samy@student.42.fr>                  +#+  +:+       +#+         #
+#    By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:51:56 by sde-smed          #+#    #+#              #
-#    Updated: 2023/01/08 17:48:33 by samy             ###   ########.fr        #
+#    Updated: 2023/01/10 12:24:46 by sde-smed         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,11 +39,11 @@ FLAGS = -Wall -Wextra -Werror
 RM		= rm -rf
 
 $(OBJ): $(SRC)
-	@gcc $(FALGS) -c $(SRC)
+	@clang $(FALGS) -c $(SRC)
 
 $(NAME): $(OBJS)
 	@make -C $(LIBFT)
-	cc $(FLAGS) -g $(OBJS) $(LIB) -o $(NAME) -I $(LIBFT)
+	clang $(FLAGS) -g $(OBJS) $(LIB) -o $(NAME) -I $(LIBFT) 
 	
 	
 all: $(NAME)

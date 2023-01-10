@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:43:21 by samy              #+#    #+#             */
-/*   Updated: 2023/01/09 11:33:14 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/10 12:25:00 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main(int argc, char **argv)
 	start_check(argv[1], &game.map);
 	init_game(&game, argv[1]);
 	col = game.map.column * SIZE;
-	row = game.map.row * SIZE + 15;
+	row = game.map.row * SIZE + 20;
 	game.window = mlx_new_window(game.mlx, col, row, "pacman_42");
 	game.moves = 0;
 	set_default_sprites(&game, &game.sprites);

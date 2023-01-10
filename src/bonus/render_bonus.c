@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samy <samy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sde-smed <sde-smed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 13:53:52 by sde-smed          #+#    #+#             */
-/*   Updated: 2023/01/08 17:35:40 by samy             ###   ########.fr       */
+/*   Updated: 2023/01/10 12:10:02 by sde-smed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ void	print_score(t_game game)
 	int		pos;
 
 	moves = ft_itoa(game.moves);
-	pos = game.map.row * SIZE + 10;
+	pos = game.map.row * SIZE - 1;
 	mlx_string_put(game.mlx, game.window, 10, pos, 0xccccff, moves);
+	free(moves);
 }
 
 void	render_map(t_game *game)
